@@ -1,6 +1,6 @@
 import { Controller, Get, Post, Body, UseGuards } from '@nestjs/common';
 import { DetectionService } from './detection.service';
-import { ApiExcludeEndpoint, ApiBearerAuth } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiBearerAuth, ApiOkResponse } from '@nestjs/swagger';
 import { AddDetectionDto } from './dto/detection.dto';
 import { Detection } from 'src/database/models/detection.model';
 import { UseRoles, ACGuard } from 'nest-access-control';
@@ -10,6 +10,10 @@ import { AuthGuard } from '@nestjs/passport';
 export class DetectionController {
     constructor(private readonly detectionService: DetectionService) { }
 
+    @ApiOkResponse({
+        type: Detection,
+        isArray: true
+    })
     @Get('latestDetections')
     async getLatestDetections(): Promise<Detection[]> {
         return this.detectionService.getLatestDetections();
