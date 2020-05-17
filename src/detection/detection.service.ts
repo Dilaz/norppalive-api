@@ -15,7 +15,7 @@ export class DetectionService {
         const detectionTimeLimit = moment().utc().subtract(this.configService.get('latestDetectionTime'), 'hours');
         return this.detectionClass.query()
             .select('label', 'confidence', 'coordinates', 'created_at')
-            .where('created_at', '<', detectionTimeLimit.toDate())
+            .where('created_at', '>', detectionTimeLimit.toDate())
             .orderBy('created_at', 'DESC');
     }
 
