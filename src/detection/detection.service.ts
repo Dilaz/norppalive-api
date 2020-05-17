@@ -12,7 +12,7 @@ export class DetectionService {
         private readonly configService: ConfigService) { }
 
     async getLatestDetections() {
-        const detectionTimeLimit = moment().utc().subtract(this.configService.get('latestDetectionTime'), 'minutes');
+        const detectionTimeLimit = moment().utc().subtract(this.configService.get('latestDetectionTime'), 'hours');
         return this.detectionClass.query()
             .select('label', 'confidence', 'coordinates', 'created_at')
             .where('created_at', '<', detectionTimeLimit.toDate())
