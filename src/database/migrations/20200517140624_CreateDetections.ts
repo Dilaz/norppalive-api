@@ -16,7 +16,7 @@ export async function up(knex: Knex): Promise<any> {
 
         t.json('coordinates').notNullable();
 
-        t.timestamps().notNullable();
+        t.timestamps();
 
         t.index('created_at');
     });

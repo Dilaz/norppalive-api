@@ -17,7 +17,9 @@ export class Detection extends BaseModel {
 
     $formatJson(json) {
         json = super.$formatJson(json);
-        json.coordinates = JSON.parse(json.coordinates);
+        if (json.coordinates) {
+            json.coordinates = JSON.parse(json.coordinates);
+        }
         return json;
     }
 }

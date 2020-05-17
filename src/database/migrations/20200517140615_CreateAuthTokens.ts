@@ -11,7 +11,7 @@ export async function up(knex: Knex): Promise<any> {
             .unique();
 
         t.dateTime('expires_at', { precision: 6 });
-        t.timestamps().notNullable();
+        t.timestamps();
     });
 }
 
