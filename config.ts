@@ -1,11 +1,11 @@
 export default () => ({
     port: Number(process.env.SERVER_PORT) || 3000,
     latestDetectionTime: 60,
+    adminUsername: process.env.ADMIN_USER,
+    adminPassword: process.env.ADMIN_PASSWORD,
     database: {
         client: 'mysql',
         useNullAsDefault: false,
-        adminUsername: process.env.ADMIN_USER,
-        adminPassword: process.env.ADMIN_PASSWORD,
         connection: {
             user: process.env.MYSQL_USER,
             password: process.env.MYSQL_PASSWORD,

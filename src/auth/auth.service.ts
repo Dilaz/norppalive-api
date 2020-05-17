@@ -5,6 +5,7 @@ import { AuthToken } from 'src/database/models/token.model';
 import { JwtService } from '@nestjs/jwt'
 import { LoginDto } from './dto/login.dto';
 import { ConfigService } from '@nestjs/config';
+import { Roles } from 'src/app.roles';
 
 @Injectable()
 export class AuthService {
@@ -15,7 +16,7 @@ export class AuthService {
 
 
     async validateUser(payload: any) {
-        const token = await this.authTokenClass.query().findOne(payload.tokenId)
+        const token = await this.authTokenClass.query().findOne({ token: payload.tokenId })
 
         return token ? payload : false;
     }
@@ -27,8 +28,8 @@ export class AuthService {
             throw new ForbiddenException;
         }
 
-        const tokenId = uuidv4().substr(0, 16)
-        const payload: any = { tokenId, role: 'admin' }
+        const tokenId = uuidv4();
+        const payload: any = { tokenId, roles: [Roles.ADMIN] };
         const token = this.jwtService.sign(payload)
         await this.authTokenClass.query().insert({ token: tokenId })
         return token
